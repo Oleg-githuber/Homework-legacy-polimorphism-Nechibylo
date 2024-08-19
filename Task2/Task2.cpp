@@ -43,9 +43,6 @@ public:
 
     Figure() = default;
 
-    Figure(std::string str) : name{ str }
-    {}
-
     virtual std::string toString() = 0;
 };
 
