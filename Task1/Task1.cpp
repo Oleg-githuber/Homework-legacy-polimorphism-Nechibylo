@@ -35,6 +35,7 @@ public:
     }
 };
 
+// Класс Треугольник
 class Triangle : public Figure
 {
 protected:
@@ -49,6 +50,7 @@ public:
     {}
 };
 
+// Класс Четырехугольник
 class Quadrangle : public Figure
 {
 protected:

@@ -32,8 +32,8 @@ private:
 
     std::string name{};
     int sidesCount{};
-    int sides[6] = {};
-    int angles[6] = {};
+    int sides[4] = {};
+    int angles[4] = {};
 
 protected:
 
