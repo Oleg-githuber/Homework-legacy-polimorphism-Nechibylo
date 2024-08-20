@@ -31,66 +31,74 @@ class Figure
 private:
 
     std::string name{};
+    int sidesCount{};
+    int sides[6] = {};
+    int angles[6] = {};
 
 protected:
 
-    Figure(std::string str) : name{ str }
+    Figure(int value, std::string str) : sidesCount{value}, name{ str }
     {}
+
+    void setSides(int* array)
+    {
+        for (int i{ 0 }; i < sidesCount; ++i)
+        {
+            sides[i] = array[i];
+        }
+    }
+
+    void setAngles(int* array)
+    {
+        for (int i{ 0 }; i < sidesCount; ++i)
+        {
+            angles[i] = array[i];
+        }
+    }
 
 public:
 
     std::string getName() { return name; }
 
-    Figure() = default;
+    int getSidesCount() { return sidesCount; }
 
-    virtual std::string toString() = 0;
+    int* getSides() { return sides; }
+
+    int* getAngles() { return angles; }
+
+    Figure() = default;
 };
 
 // Треугольник
 class Triangle : public Figure
 {
 private:
-
-    int aSide{ 10 };
-    int bSide{ 20 };
-    int cSide{ 30 };
-
-    int aAngle{ 50 };
-    int bAngle{ 60 };
-    int cAngle{ 70 };
+   
+    void initTriangle(int aSide, int bSide, int cSide, int AAngle, int BAngle, int CAngle)
+    {
+        int arrSides[] = { aSide, bSide, cSide };
+        setSides(arrSides);
+        int arrAngles[] = { AAngle, BAngle, CAngle };
+        setAngles(arrAngles);
+    }
 
 protected:
 
-    int getASide() { return aSide; }
-    int getBSide() { return bSide; }
-    int getCSide() { return cSide; }
-
-    int getAAngle() { return aAngle; }
-    int getBAngle() { return bAngle; }
-    int getCAngle() { return cAngle; }
-
-    Triangle(std::string newName, int a, int b, int c, int A, int B, int C) :
-        Figure(newName), aSide{ a }, bSide{ b }, cSide{ c }, aAngle{ A }, bAngle{ B }, cAngle{ C }
-    {}
+    Triangle(std::string newName, int aSide, int bSide, int cSide, int AAngle, int BAngle, int CAngle) :
+        Figure{ 3, newName }
+    {
+        initTriangle(aSide, bSide, cSide, AAngle, BAngle, CAngle);
+    }
 
 public:
 
     Triangle() : Triangle{ 10, 20, 30, 50, 60, 70 }
     {}
 
-    Triangle(int a, int b, int c, int A, int B, int C) :
-        Figure{ "Треугольник" }, aSide{a}, bSide{b}, cSide{c}, aAngle{A}, bAngle{B}, cAngle{C}
-    {}
-
-    std::string data()
+    Triangle(int aSide, int bSide, int cSide, int AAngle, int BAngle, int CAngle) :
+        Figure{3, "Треугольник" }
     {
-        return "Стороны: a = " + std::to_string(getASide()) + " b = " + std::to_string(getBSide()) + " c = " + std::to_string(getCSide()) +
-            "\nУглы: A = " + std::to_string(getAAngle()) + " B = " + std::to_string(getBAngle()) + " C = " + std::to_string(getCAngle());
-    }
-
-    virtual std::string toString() override
-    {
-        return getName() + ":\n" + data();
+        initTriangle(aSide, bSide, cSide, AAngle, BAngle, CAngle);
     }
 };
 
@@ -140,50 +148,31 @@ class Quadrangle : public Figure
 {
 private:
 
-    int aSide{ 10 };
-    int bSide{ 20 };
-    int cSide{ 30 };
-    int dSide{ 40 };
-
-    int aAngle{ 50 };
-    int bAngle{ 60 };
-    int cAngle{ 70 };
-    int dAngle{ 80 };
+    void initQuadrangle(int aSide, int bSide, int cSide, int dSide, int AAngle, int BAngle, int CAngle, int DAngle)
+    {
+        int arrSides[] = { aSide, bSide, cSide, dSide };
+        setSides(arrSides);
+        int arrAngles[] = { AAngle, BAngle, CAngle, DAngle };
+        setAngles(arrAngles);
+    }
 
 protected:
 
-    int getASide() { return aSide; }
-    int getBSide() { return bSide; }
-    int getCSide() { return cSide; }
-    int getDSide() { return dSide; }
-
-    int getAAngle() { return aAngle; }
-    int getBAngle() { return bAngle; }
-    int getCAngle() { return cAngle; }
-    int getDAngle() { return dAngle; }
-
-    Quadrangle(std::string newName, int a, int b, int c, int d, int A, int B, int C, int D) :
-        Figure(newName), aSide{ a }, bSide{ b }, cSide{ c }, dSide{ d }, aAngle{ A }, bAngle{ B }, cAngle{ C }, dAngle{ D }
-    {}
+    Quadrangle(std::string newName, int aSide, int bSide, int cSide, int dSide, int AAngle, int BAngle, int CAngle, int DAngle) :
+        Figure{4, newName}
+    {
+        initQuadrangle(aSide, bSide, cSide, dSide, AAngle, BAngle, CAngle, DAngle);
+    }
 
 public:
 
     Quadrangle() : Quadrangle{ 10, 20, 30, 40, 50, 60, 70, 80 }
     {}
 
-    Quadrangle(int a, int b, int c, int d, int A, int B, int C, int D) :
-        Figure{ "Четырёхугольник" }, aSide{a}, bSide{b}, cSide{c}, dSide{d}, aAngle{A}, bAngle{B}, cAngle{C}, dAngle{D}
-    {}
-
-    std::string data()
+    Quadrangle(int aSide, int bSide, int cSide, int dSide, int AAngle, int BAngle, int CAngle, int DAngle) :
+        Figure{4, "Четырёхугольник" }
     {
-        return "Стороны: a = " + std::to_string(getASide()) + " b = " + std::to_string(getBSide()) + " c = " + std::to_string(getCSide()) + " d = " + std::to_string(getDSide()) + 
-            "\nУглы: A = " + std::to_string(getAAngle()) + " B = " + std::to_string(getBAngle()) + " C = " + std::to_string(getCAngle()) + " D = " + std::to_string(getDAngle());
-    }
-
-    virtual std::string toString() override
-    {
-        return getName() + ":\n" + data();
+        initQuadrangle(aSide, bSide, cSide, dSide, AAngle, BAngle, CAngle, DAngle);
     }
 };
 
@@ -272,5 +261,21 @@ int main()
 
 void printInfo(Figure* figure)
 {
-    std::cout << figure->toString() << '\n' << std::endl;
+    const int arrSize { figure->getSidesCount() };
+    int* arrSides = figure->getSides();
+    std::cout << figure->getName() << "\nСтороны: ";
+    for (int i{}; i < arrSize; ++i)
+    {
+        char letter = 97 + i;
+        std::cout << letter << " = " << arrSides[i] << ' ';
+    }
+
+    int* arrAngles = figure->getAngles();
+    std::cout << "\n Углы: ";
+    for (int i{}; i < arrSize; ++i)
+    {
+        char letter = 65 + i;
+        std::cout << letter << " = " << arrAngles[i] << ' ';
+    }
+    std::cout << '\n' << std::endl;
 }
