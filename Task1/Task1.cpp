@@ -20,12 +20,14 @@ private:
     int sidesCount{};
     std::string name{ "Фигура" };
 
+protected:
+
+    Figure(int value, std::string str) : sidesCount{ value }, name{ str }
+    {}
+
 public:
 
     Figure() = default;
-
-    Figure(int value, std::string str) : sidesCount{ value }, name{str}
-    {}
 
     std::string toString()
     {
@@ -35,23 +37,28 @@ public:
 
 class Triangle : public Figure
 {
+protected:
+
+
+    Triangle(int value) : Figure{ value, "Треугольник" }
+    {}
+
 public:
 
     Triangle() : Triangle{3}
-    {}
-
-    Triangle(int value) : Figure{ value, "Треугольник"}
     {}
 };
 
 class Quadrangle : public Figure
 {
+protected:
+
+    Quadrangle(int value) : Figure{ value, "Четырёхугольник" }
+    {}
+
 public:
 
     Quadrangle() : Quadrangle(4)
-    {}
-
-    Quadrangle(int value) : Figure{ value, "Четырёхугольник" }
     {}
 };
 
